@@ -4,10 +4,13 @@
  */
 package Model.Dao;
 
+import java.sql.SQLException;
+
+
 /**
  *
  * @author sibaj
  */
 public interface DAO {
-    
+  
 }
