@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-
 /**
  *
  * @author sibaj
@@ -25,7 +24,7 @@ public abstract class DAO<Dto> {
     public DAO(Connection connection) {
         this.connection = connection;
     }
-    public abstract boolean create (Dto dto)throws SQLException;
+    public abstract boolean Agregar (Dto dto)throws SQLException;
     public abstract Dto read (Object id)throws SQLException;
     public abstract boolean update (Dto dto)throws SQLException;
     public abstract boolean delete (Object id)throws SQLException;
