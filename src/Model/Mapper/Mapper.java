@@ -4,10 +4,13 @@
  */
 package Model.Mapper;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author sibaj
  */
-public interface Mapper {
-    
+public interface Mapper <Ent, DTO>{
+    public DTO toDTO(Ent ent);
+    public Ent toEnt(DTO dto)throws SQLException;
 }
