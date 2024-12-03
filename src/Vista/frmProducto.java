@@ -4,12 +4,18 @@
  */
 package Vista;
 
+import Controller.ProductoController;
+import Model.Producto.Producto;
+import Utils.utilsGui;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Pablo
  */
-public class frmProducto extends javax.swing.JFrame {
-
+public class frmProducto extends javax.swing.JFrame implements View<Producto> {
+Producto producto;
+ProductoController  controller;
     /**
      * Creates new form frmProducto
      */
@@ -233,20 +239,22 @@ public class frmProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-//        if (!validateRequired()){
-//            showError("Faltan datos requeridos");
-//            return;
-//        }
-//        customer=new Customer(
-//            txtId.getText(),
-//            txtName.getText(),
-//            UtilDate.toLocalDate(txtDate.getText()),
-//            txtPhone.getText(),
-//            txtEmail.getText()
-//        );
-//        controller.create(customer);
-//        this.SetEditableStateTxts(false);
-//        changeStateBtns();
+        if (!validateRequired()){
+            showError("Faltan datos requeridos");
+            return;
+        }
+        producto=new Producto(
+            txtCodigo.getText(),
+            txtNombre.getText(),
+            txtPrecio.getText(),
+            txtProveedor.getText(),
+            cbCategoria.get(),
+            spDisponible.getText();
+                
+        );
+        controller.create(customer);
+        this.SetEditableStateTxts(false);
+        changeStateBtns();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
@@ -352,4 +360,49 @@ public class frmProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void show(Producto ent) {
+ producto=ent;
+        if (ent==null) {
+            clear();
+            return;
+        }
+        txtCodigo.setText(ent.getId());
+        txtNombre.setText(ent.getNombre());
+        txtPrecio.setText(ent.getPrecio());
+        txtProveedor.setText(ent.getPrecio());
+        cbCategoria.setText(ent.getPrecio());
+        spDisponible.setText(ent.getPrecio());
+
+
+    }
+
+    @Override
+    public void showMessage(String msg) {
+JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);     }
+
+    @Override
+    public void showError(String err) {
+JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);     }
+
+    @Override
+    public boolean validateRequired() {
+     return utilsGui.validateFields(txtCodigo,txtNombre,txtPrecio,txtProveedor, cbCategoria,spDisponible );
+    }
+    
+      private void clear(){
+        utilsGui.clearTxts(txtId,
+                txtNombre,
+                txtDireccion,
+                txtComprasRealiz,
+                txtTelefono,
+                txtEmail
+        );
+    }
+         private void SetEditableStateTxts(boolean value){
+        txtId.setEditable(value);
+        txtNombre.setEditable(value);
+        txtDireccion.setEditable(value);
+    }
 }

@@ -227,7 +227,7 @@ ClienteController controller;
         );
        controller .create(cliente);
         this.SetEditableStateTxts(false);
-        changeStateBtns();
+      
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
