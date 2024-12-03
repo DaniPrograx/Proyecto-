@@ -6,6 +6,7 @@ package Controller;
 import DataBase.DatabaseConnection;
 import Model.Usuario.Usuario;
 import Model.Usuario.UsuarioDAO;
+import Model.Usuario.UsuarioDTO;
 
 import Model.Usuario.UsuarioMapper;
 import Vista.View;
@@ -15,7 +16,8 @@ import java.sql.SQLException;
  * @author Pablo
  */
 public class UsuarioController {
-      private UsuarioDAO dao;
+
+    private UsuarioDAO dao;
     private final View view;
     private final UsuarioMapper mapper;
 
@@ -24,95 +26,94 @@ public class UsuarioController {
         this.mapper = new UsuarioMapper();
         try {
             this.dao = new UsuarioDAO(DatabaseConnection.getConnection());
-        } catch (RuntimeException ex) { // Cambia SQLException por RuntimeException
+        } catch (RuntimeException ex) { // Cambia SQLException por RuntimeException si es necesario
             this.dao = null; // Inicialización segura en caso de error
             view.showError("Error al conectar con la Base de Datos: " + ex.getMessage());
-
         }
     }
 
     public void create(Usuario usuario) {
-        if (usuario == null || !validateRequired(proveedor)) {
+        if (usuario == null || !validateRequired(usuario)) {
             view.showError("Faltan datos requeridos");
             return;
         }
         try {
             if (!validatePK(usuario.getUsername())) {
-                view.showError("el Id ingresado  ya se encuentra registrado");
+                view.showError("El nombre de usuario ya se encuentra registrado");
                 return;
             }
-            dao.Agregar(mapper.toDTO(proveedor));
-            view.showMessage("Datos guardados correctamente");
+            dao.Agregar(mapper.toDTO(usuario));
+            view.showMessage("Usuario creado correctamente");
         } catch (SQLException ex) {
-            view.showError("Ocurrio un error al guardar los datos: " + ex.getMessage());
+            view.showError("Ocurrió un error al crear el usuario: " + ex.getMessage());
         }
     }
 
-    public void read(Proveedor proveedor) {
-        if (proveedor == null || !validateRequired(proveedor)) {
-            view.showError("La cédula no puede estar vacía");
+    public void read(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            view.showError("El nombre de usuario no puede estar vacío");
             return;
         }
         try {
-            if (!validatePK(proveedor.getId())) {
-                view.showError("La cedula ingresada ya se encuentra registrada");
+            UsuarioDTO dto = dao.read(username);
+            if (dto == null) {
+                view.showError("No se encontró un usuario con el nombre especificado");
                 return;
             }
-            dao.read(mapper.toDTO(proveedor));
-            view.showMessage("Datos del producto");
+            Usuario usuario = mapper.toEnt(dto);
+            view.showMessage("Datos del usuario: " + usuario.getUsername());
         } catch (SQLException ex) {
-            view.showError("Ocurrio un error al guardar los datos: " + ex.getMessage());
-
+            view.showError("Ocurrió un error al buscar el usuario: " + ex.getMessage());
         }
     }
 
-    public void update(Proveedor proveedor) {
-        if (proveedor == null || !validateRequired(proveedor)) {
+    public void update(Usuario usuario) {
+        if (usuario == null || !validateRequired(usuario)) {
             view.showError("Faltan datos requeridos");
             return;
         }
         try {
-            if (validatePK(proveedor.getId())) {
-                view.showError("La cedula ingresada no se encuentra registrada");
+            if (validatePK(usuario.getUsername())) {
+                view.showError("El nombre de usuario no se encuentra registrado");
                 return;
             }
-            dao.update(mapper.toDTO(proveedor));
+            dao.update(mapper.toDTO(usuario));
+            view.showMessage("Usuario actualizado correctamente");
         } catch (SQLException ex) {
-            view.showError("Ocurrio un error al actualizar los datos: " + ex.getMessage());
+            view.showError("Ocurrió un error al actualizar el usuario: " + ex.getMessage());
         }
     }
 
-    public void delete(Proveedor proveedor) {
-        if (proveedor == null || !validateRequired(proveedor)) {
-            view.showError("No hay ningun proveedor cargado actualmente");
+    public void delete(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            view.showError("El nombre de usuario no puede estar vacío");
             return;
         }
         try {
-            if (validatePK(proveedor.getId())) {
-                view.showError("La cedula ingresada no ya se encuentra registrada");
+            if (validatePK(username)) {
+                view.showError("El nombre de usuario no se encuentra registrado");
                 return;
             }
-            dao.delete(proveedor.getId());
+            dao.delete(username);
+            view.showMessage("Usuario eliminado correctamente");
         } catch (SQLException ex) {
-            view.showError("Ocurrio un error al eliminar los datos: " + ex.getMessage());
+            view.showError("Ocurrió un error al eliminar el usuario: " + ex.getMessage());
         }
     }
 
-    public boolean validateRequired(Proveedor proveedor) {
-        return!Integer.toString(proveedor.getId()).trim().isEmpty()
-                && !proveedor.getNombre().trim().isEmpty()
-                && !proveedor.getContacto().trim().isEmpty()
-                && !proveedor.getContacto().trim().isEmpty() ;
-        
-                
-              
-    }
-
-    public boolean validatePK(int id) {
+    private boolean validatePK(String username) {
         try {
-            return dao.validatePK(id);
+            return dao.validatePK(username);
         } catch (SQLException ex) {
+            view.showError("Error al validar el nombre de usuario: " + ex.getMessage());
             return false;
         }
     }
+
+    private boolean validateRequired(Usuario usuario) {
+        return usuario.getUsername() != null && !usuario.getUsername().trim().isEmpty()
+                && usuario.getPassword() != null && !usuario.getPassword().trim().isEmpty()
+                && usuario.getRol() != null && !usuario.getRol().trim().isEmpty();
+    }
 }
+
