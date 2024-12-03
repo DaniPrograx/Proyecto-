@@ -28,7 +28,7 @@ public class ClienteDAO extends DAO<ClienteDTO>{
         if (dto == null || !validatePK(dto.getCedula())) {
             return false;
         }
-        String query = "Call ClienteAgregar(?,?,?,?,?)";
+        String query = "Call Cliente(?,?,?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, dto.getCedula());
             stmt.setString(2, dto.getNombreCompleto());
@@ -66,7 +66,7 @@ public class ClienteDAO extends DAO<ClienteDTO>{
        if (dto == null) {
             return false;
         }
-        String query = "Call ClienteUpdate(?,?,?)";
+        String query = "Call Cliente(?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, dto.getDireccion());
             stmt.setString(2, dto.getTelefono());
@@ -79,7 +79,7 @@ public class ClienteDAO extends DAO<ClienteDTO>{
 
     @Override
     public boolean delete(Object id) throws SQLException {
-         String query = "Call ClienteDelete(?)";
+         String query = "Call Cliente(?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, String.valueOf(id));
             return stmt.executeUpdate() > 0;
