@@ -9,15 +9,15 @@ package Model.Producto;
  * @author sibaj
  */
 public class ProductoDTO {
-    private int codigo;
+    private int id;
     private String nombre;
     private String categoria;
     private double precio;
     private int cantidadDisponible;
     private String proveedor;
 
-    public ProductoDTO(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
-        this.codigo = codigo;
+    public ProductoDTO(int id, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
+        this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -25,9 +25,13 @@ public class ProductoDTO {
         this.proveedor = proveedor;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getId() {
+        return id;
     }
+
+  
+
+   
 
     public String getNombre() {
         return nombre;

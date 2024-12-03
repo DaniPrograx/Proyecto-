@@ -30,7 +30,7 @@ public class ProductoDAO extends DAO<ProductoDTO>{
 //        }
         String query = "Call ProductoAgregar(?,?,?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, dto.getCodigo());
+            stmt.setInt(1, dto.getId());
             stmt.setString(2, dto.getNombre());
             stmt.setString(3, dto.getCategoria());
             stmt.setDouble(4, dto.getPrecio());
@@ -68,7 +68,7 @@ public class ProductoDAO extends DAO<ProductoDTO>{
         }
         String query = "Call ProductoUpdate(?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, dto.getCodigo());
+            stmt.setInt(1, dto.getId());
             stmt.setDouble(2, dto.getPrecio());
             stmt.setString(3, dto.getProveedor());
             stmt.setInt(4,dto.getCantidadDisponible());
@@ -86,5 +86,7 @@ public class ProductoDAO extends DAO<ProductoDTO>{
 
         }
     }
-    
+    public boolean validatePK(Object id)throws SQLException{
+       return read (id)==null;
+    }
 }

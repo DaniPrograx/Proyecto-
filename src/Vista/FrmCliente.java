@@ -3,19 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
-
+import Controller.ClienteController;
+import Model.Cliente.Cliente;
+import Utils.utilsGui;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Pablo
  */
-public class FrmCliente extends javax.swing.JFrame {
-
+public class FrmCliente extends javax.swing.JFrame implements View<Cliente>{
+Cliente cliente;
+ClienteController controller;
     /**
      * Creates new form FrmCliente
      */
     public FrmCliente() {
         initComponents();
+         controller= new ClienteController(this);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +41,7 @@ public class FrmCliente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtComprasRealiz = new javax.swing.JTextField();
@@ -134,7 +140,7 @@ public class FrmCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -181,7 +187,7 @@ public class FrmCliente extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtComprasRealiz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
@@ -208,63 +214,71 @@ public class FrmCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-//        if (!validateRequired()){
-//            showError("Faltan datos requeridos");
-//            return;
-//        }
-//        customer=new Customer(
-//            txtId.getText(),
-//            txtName.getText(),
-//            UtilDate.toLocalDate(txtDate.getText()),
-//            txtPhone.getText(),
-//            txtEmail.getText()
-//        );
-//        controller.create(customer);
-//        this.SetEditableStateTxts(false);
-//        changeStateBtns();
+        if (!validateRequired()){
+            showError("Faltan datos requeridos");
+            return;
+        }
+        cliente=new Cliente(
+            txtId.getText(),
+            txtNombre.getText(),
+            txtDireccion.getText(),
+            txtComprasRealiz.getText(),
+            txtEmail.getText()
+        );
+       controller .create(cliente);
+        this.SetEditableStateTxts(false);
+        changeStateBtns();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-//        show(customer);
-//        this.SetEditableStateTxts(false);
-//        changeStateBtns();
+        show(cliente);
+        this.SetEditableStateTxts(false);
+        changeStateBtns();
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-//        if (customer==null){
-//            showError("No hay ningun cliente cargado actualmente");
-//            return;
-//        }
-//        int option = JOptionPane.showConfirmDialog(
-//            this,
-//            "¿Está seguro que desea eliminar el cliente actual?",
-//            "Confirmar Eliminación",
-//            JOptionPane.YES_NO_OPTION
-//        );
-//        if(option==JOptionPane.NO_OPTION) return;
-//        controller.delete(customer);
-//        clear();
+        if (cliente==null){
+            showError("No hay ningun cliente cargado actualmente");
+            return;
+        }
+        int option = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro que desea eliminar el cliente actual?",
+            "Confirmar Eliminación",
+            JOptionPane.YES_NO_OPTION
+        );
+        if(option==JOptionPane.NO_OPTION) return;
+        controller.delete(cliente);
+        clear();
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-//        if (customer==null){
-//            showError("No hay ningun cliente cargado actualmente");
-//            return;
-//        }
-//        if(!validateRequired()){
-//            showError("Faltan datos requeridos");
-//            return;
-//        }
-//        String newPhone = txtPhone.getText().trim();
-//        String newEmail = txtEmail.getText().trim();
-//        if (!newPhone.equals(customer.getPhone()) || !newEmail.equals(customer.getEmail())) {
-//            customer.setPhone(newPhone);
-//            customer.setEmail(newEmail);
-//            controller.update(customer);
-//            showMessage("Datos actualizados correctamente");
-//        }else{
-//            showMessage("No se realizaron cambios");
-//        }
+       // Verificar si el cliente está cargado
+    if (cliente == null) {
+        showError("No hay ningún cliente cargado actualmente");
+        return;
+    }
+
+    // Obtener los nuevos datos
+    String newPhone = txtTelefono.getText().trim();
+    String newDireccion = txtDireccion.getText().trim();
+    String newEmail = txtEmail.getText().trim();
+
+    // Compara si los datos han cambiado
+    if (!newPhone.equals(cliente.getTelefono()) || 
+        !newDireccion.equals(cliente.getDireccion()) || 
+        !newEmail.equals(cliente.getCorreoElectronico())) {
+        
+        // Si hay cambios, actualizamos los datos
+        cliente.setTelefono(newPhone);
+        cliente.setDireccion(newDireccion);
+        cliente.setCorreoElectronico(newEmail);
+        
+        controller.update(cliente); // Actualizar cliente
+        showMessage("Datos actualizados correctamente");
+    } else {
+        showMessage("No se realizaron cambios");
+    }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
@@ -320,6 +334,54 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void show(Cliente ent) {
+  cliente=ent;
+        if (ent==null) {
+            clear();
+            return;
+        }
+        txtId.setText(ent.getCedula());
+        txtNombre.setText(ent.getNombreCompleto());
+        txtDireccion.setText(ent.getDireccion());
+   
+    }
+      
+
+    @Override
+    public void showMessage(String msg) {
+  JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);    }
+
+    @Override
+    public void showError(String err) {
+ JOptionPane.showMessageDialog(this, err, "Error", JOptionPane.ERROR_MESSAGE);    }
+
+    @Override
+    public boolean validateRequired() {
+     return utilsGui.validateFields(txtId,txtNombre,txtDireccion,txtTelefono, txtComprasRealiz,txtEmail);
+    }
+        
+
+    
+    public void changeStateBtns() {
+        utilsGui.changeStateButtons(btnGuardar,btnEditar,btnbuscar,btneliminar);
+    }
+    
+     private void clear(){
+        utilsGui.clearTxts(txtId,
+                txtNombre,
+                txtDireccion,
+                txtComprasRealiz,
+                txtTelefono,
+                txtEmail
+        );
+    }
+      private void SetEditableStateTxts(boolean value){
+        txtId.setEditable(value);
+        txtNombre.setEditable(value);
+        txtDireccion.setEditable(value);
+    }
 }

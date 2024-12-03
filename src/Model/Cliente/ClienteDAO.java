@@ -25,9 +25,9 @@ public class ClienteDAO extends DAO<ClienteDTO>{
     @Override
     public boolean Agregar(ClienteDTO dto) throws SQLException {
       
-//        if (dto == null || !validatePK(dto.getCedula())) {
-//            return false;
-//        }
+        if (dto == null || !validatePK(dto.getCedula())) {
+            return false;
+        }
         String query = "Call ClienteAgregar(?,?,?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, dto.getCedula());
@@ -68,7 +68,7 @@ public class ClienteDAO extends DAO<ClienteDTO>{
         }
         String query = "Call ClienteUpdate(?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, dto.getCedula());
+            stmt.setString(1, dto.getDireccion());
             stmt.setString(2, dto.getTelefono());
             stmt.setString(3, dto.getCorreoElectronico());
             return stmt.executeUpdate() > 0;
@@ -86,6 +86,8 @@ public class ClienteDAO extends DAO<ClienteDTO>{
 
         }
     }
-
+public boolean validatePK(Object id)throws SQLException{
+       return read (id)==null;
+    }
     
 }

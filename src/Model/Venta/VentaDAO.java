@@ -87,5 +87,7 @@ public class VentaDAO extends DAO<VentaDTO>{
 
         }
     }
-    
+     public boolean validatePK(Object id)throws SQLException{
+       return read (id)==null;
+    }
 }

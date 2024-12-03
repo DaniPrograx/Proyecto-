@@ -20,7 +20,7 @@ public class ProductoMapper implements Mapper<Producto, ProductoDTO> {
         }
 
         return new ProductoDTO(
-                ent.getCodigo(),
+                ent.getId(),
                 ent.getNombre(),
                 ent.getCategoria(),
                 ent.getPrecio(),
@@ -34,7 +34,7 @@ public class ProductoMapper implements Mapper<Producto, ProductoDTO> {
             
        
         return new Producto(
-        dto.getCodigo(),
+        dto.getId(),
        dto .getNombre(),
         dto.getCategoria(),
         dto.getPrecio(),

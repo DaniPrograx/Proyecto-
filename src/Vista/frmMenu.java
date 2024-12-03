@@ -31,7 +31,7 @@ public class frmMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        mnProducto = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -51,8 +51,13 @@ public class frmMenu extends javax.swing.JFrame {
         jMenu2.setText("Venta");
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Producto");
-        jMenuBar1.add(jMenu3);
+        mnProducto.setText("Producto");
+        mnProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnProductoActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(mnProducto);
 
         jMenu4.setText("Proveedor");
         jMenuBar1.add(jMenu4);
@@ -84,6 +89,13 @@ public class frmMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnProductoActionPerformed
+        // TODO add your handling code here:
+        frmProducto Producto = new frmProducto();
+                Producto.setVisible(true);
+                 Producto.show();   
+    }//GEN-LAST:event_mnProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,11 +136,11 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu mnProducto;
     // End of variables declaration//GEN-END:variables
 }

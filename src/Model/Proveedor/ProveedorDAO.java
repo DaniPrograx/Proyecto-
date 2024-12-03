@@ -78,5 +78,7 @@ public class ProveedorDAO extends DAO<ProveedorDTO>{
 
         }
     }
-    
+     public boolean validatePK(Object id)throws SQLException{
+       return read (id)==null;
+    }
 }

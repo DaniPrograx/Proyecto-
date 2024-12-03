@@ -75,6 +75,9 @@ public class UsuarioDAO extends DAO<UsuarioDTO>{
 
         }
     }
+     public boolean validatePK(Object id)throws SQLException{
+       return read (id)==null;
+    }
     }
     
 

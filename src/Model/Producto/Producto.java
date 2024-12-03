@@ -9,7 +9,7 @@ package Model.Producto;
  * @author sibaj
  */
 public class Producto {
-    private int codigo;
+    private int id;
     private String nombre;
     private String categoria;
     private double precio;
@@ -17,22 +17,24 @@ public class Producto {
     private String proveedor;
 
     // Constructor
-    public Producto(int codigo, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
-        this.codigo = codigo;
+
+    public Producto(int id, String nombre, String categoria, double precio, int cantidadDisponible, String proveedor) {
+        this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
         this.cantidadDisponible = cantidadDisponible;
         this.proveedor = proveedor;
     }
+  
 
-    // Getters y setters
-    public int getCodigo() {
-        return codigo;
+    public int getId() {
+        return id;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    // Getters y setters
+    public void setId(int id) {   
+        this.id = id;
     }
 
     public String getNombre() {
